@@ -59,6 +59,6 @@ jobs:
     - name: Terraform Plan
       run: terraform plan -var="subscription_id=${{ secrets.AZURE_SUBSCRIPTION_ID }}" -out=tfplan
 
-    - name: Terraform Apply
-      if: (github.ref == 'refs/heads/main' || github.ref == 'refs/heads/initial') && (github.event_name == 'push' || github.event_name == 'workflow_dispatch')
-      run: terraform apply -auto-approve tfplan
+    #- name: Terraform Apply
+    #  if: (github.ref == 'refs/heads/main' || github.ref == 'refs/heads/initial') && (github.event_name == 'push' || github.event_name == 'workflow_dispatch')
+    #  run: terraform apply -auto-approve tfplan
