@@ -62,6 +62,21 @@ module "ai_landing_zone" {
         description  = "Minimal AI Foundry Project"
       }
     }
+    storage_account_definition = {
+      "default" = {
+        name = "stfoundry${random_string.suffix.result}"
+      }
+    }
+    key_vault_definition = {
+      "default" = {
+        name = "kv-foundry-${random_string.suffix.result}"
+      }
+    }
+    law_definition = {
+      "default" = {
+        name = "law-foundry-${random_string.suffix.result}"
+      }
+    }
   }
 
   # Disable optional components for a minimal setup
