@@ -112,5 +112,5 @@ module "ai_landing_zone" {
   container_app_environment_definition = { deploy = false }
   firewall_definition                  = { deploy = false }
   jumpvm_definition                    = { deploy = false }
-  flag_platform_landing_zone           = false # Standalone deployment
+  flag_platform_landing_zone           = true # Standalone deployment requires DNS zones to be created
 }
