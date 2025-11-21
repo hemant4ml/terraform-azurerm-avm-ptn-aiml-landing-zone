@@ -48,8 +48,6 @@ jobs:
           -backend-config="key=terraform.tfstate" \
           -backend-config="use_oidc=true"
 
-        # For local testing or if no backend is configured in main.tf:
-        # terraform init
       env:
         TF_BACKEND_RG: ${{ secrets.TF_BACKEND_RG }}
         TF_BACKEND_SA: ${{ secrets.TF_BACKEND_SA }}
