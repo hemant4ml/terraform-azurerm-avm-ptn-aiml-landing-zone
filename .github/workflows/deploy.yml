@@ -40,11 +40,14 @@ jobs:
 
     - name: Terraform Init
       run: |
-        # If you have a remote backend, uncomment and configure the following lines:
+        # Sanitize inputs (Azure requires lowercase for storage accounts and containers)
+        TF_BACKEND_SA_LOWER=$(echo "${{ secrets.TF_BACKEND_SA }}" | tr '[:upper:]' '[:lower:]')
+        TF_BACKEND_CONTAINER_LOWER=$(echo "${{ secrets.TF_BACKEND_CONTAINER }}" | tr '[:upper:]' '[:lower:]')
+
         terraform init \
           -backend-config="resource_group_name=${{ secrets.TF_BACKEND_RG }}" \
-          -backend-config="storage_account_name=${{ secrets.TF_BACKEND_SA }}" \
-          -backend-config="container_name=${{ secrets.TF_BACKEND_CONTAINER }}" \
+          -backend-config="storage_account_name=$TF_BACKEND_SA_LOWER" \
+          -backend-config="container_name=$TF_BACKEND_CONTAINER_LOWER" \
           -backend-config="key=terraform.tfstate" \
           -backend-config="use_oidc=true"
 
