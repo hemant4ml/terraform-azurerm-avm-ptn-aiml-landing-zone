@@ -65,7 +65,11 @@ module "ai_landing_zone" {
   }
 
   # Disable optional components for a minimal setup
-  apim_definition                      = { deploy = false }
+  apim_definition = {
+    deploy          = false
+    publisher_email = "dummy@example.com"
+    publisher_name  = "dummy"
+  }
   app_gateway_definition               = { deploy = false }
   bastion_definition                   = { deploy = false }
   buildvm_definition                   = { deploy = false }
