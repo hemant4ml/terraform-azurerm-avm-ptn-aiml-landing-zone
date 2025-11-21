@@ -88,6 +88,7 @@ module "ai_landing_zone" {
   genai_container_registry_definition = {
     sku                           = "Standard"
     public_network_access_enabled = true
+    zone_redundancy_enabled       = false
   }
 
   # Disable optional components for a minimal setup
