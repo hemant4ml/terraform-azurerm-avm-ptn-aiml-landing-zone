@@ -53,23 +53,28 @@ module "ai_landing_zone" {
     ai_foundry = {
       name                    = "aifoundry-${random_string.suffix.result}"
       sku                     = "S0"
-      create_ai_agent_service = true
+      create_ai_agent_service = false
     }
     ai_projects = {
       "default-project" = {
         name         = "proj-default-${random_string.suffix.result}"
         display_name = "Default Project"
         description  = "Minimal AI Foundry Project"
+        storage_account_connection = {
+          new_resource_map_key = "default"
+        }
       }
     }
     storage_account_definition = {
       "default" = {
-        name = "stfoundry${random_string.suffix.result}"
+        name                       = "stfoundry${random_string.suffix.result}"
+        enable_diagnostic_settings = false
       }
     }
     key_vault_definition = {
       "default" = {
-        name = "kv-foundry-${random_string.suffix.result}"
+        name                       = "kv-foundry-${random_string.suffix.result}"
+        enable_diagnostic_settings = false
       }
     }
     law_definition = {
