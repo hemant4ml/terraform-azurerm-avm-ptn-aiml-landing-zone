@@ -5,7 +5,7 @@ This directory contains the Terraform configuration for deploying the AI Foundry
 ## Prerequisites
 
 1.  **Azure Subscription**: You need an active Azure subscription.
-2.  **Terraform**: Install Terraform (v1.9+).
+2.  **Terraform**: Install Terraform (v1.10+).
 3.  **Azure CLI**: Install the Azure CLI.
 
 ## Local Deployment

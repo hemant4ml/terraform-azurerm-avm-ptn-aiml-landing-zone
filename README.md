@@ -9,7 +9,7 @@ This pattern module creates the full AI/ML landing zone which supports multiple 
 
 The following requirements are needed by this module:
 
-- <a name="requirement_terraform"></a> [terraform](#requirement\_terraform) (>= 1.9, < 2.0)
+- <a name="requirement_terraform"></a> [terraform](#requirement\_terraform) (>= 1.10, < 2.0)
 
 - <a name="requirement_azapi"></a> [azapi](#requirement\_azapi) (~> 2.4)
 
@@ -553,7 +553,7 @@ Description: Configuration object for the Azure API Management service to be dep
   - `portal` - (Optional) List of custom hostnames for the developer portal endpoint.
   - `developer_portal` - (Optional) List of custom hostnames for the new developer portal endpoint.
   - `proxy` - (Optional) List of custom hostnames for the proxy endpoint.
-  - `scm` - (Optional) List of custom hostnames for the SCM endpoint.  
+  - `scm` - (Optional) List of custom hostnames for the SCM endpoint.
     Each hostname configuration includes:
     - `host_name` - The custom hostname.
     - `key_vault_id` - (Optional) Resource ID of the Key Vault containing the certificate.
@@ -1152,8 +1152,8 @@ Default: `{}`
 
 ### <a name="input_enable_telemetry"></a> [enable\_telemetry](#input\_enable\_telemetry)
 
-Description: This variable controls whether or not telemetry is enabled for the module.  
-For more information see <https://aka.ms/avm/telemetryinfo>.  
+Description: This variable controls whether or not telemetry is enabled for the module.
+For more information see <https://aka.ms/avm/telemetryinfo>.
 If it is set to false, then no telemetry will be collected.
 
 Type: `bool`
