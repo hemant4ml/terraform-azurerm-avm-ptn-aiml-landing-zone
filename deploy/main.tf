@@ -70,7 +70,43 @@ module "ai_landing_zone" {
     publisher_email = "dummy@example.com"
     publisher_name  = "dummy"
   }
-  app_gateway_definition               = { deploy = false }
+  app_gateway_definition = {
+    deploy = false
+    backend_address_pools = {
+      dummy = {
+        name = "dummy"
+      }
+    }
+    backend_http_settings = {
+      dummy = {
+        name     = "dummy"
+        port     = 80
+        protocol = "Http"
+      }
+    }
+    frontend_ports = {
+      dummy = {
+        name = "dummy"
+        port = 80
+      }
+    }
+    http_listeners = {
+      dummy = {
+        name               = "dummy"
+        frontend_port_name = "dummy"
+      }
+    }
+    request_routing_rules = {
+      dummy = {
+        name                       = "dummy"
+        rule_type                  = "Basic"
+        http_listener_name         = "dummy"
+        backend_address_pool_name  = "dummy"
+        backend_http_settings_name = "dummy"
+        priority                   = 1
+      }
+    }
+  }
   bastion_definition                   = { deploy = false }
   buildvm_definition                   = { deploy = false }
   container_app_environment_definition = { deploy = false }
