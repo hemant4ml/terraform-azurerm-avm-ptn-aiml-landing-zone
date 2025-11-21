@@ -140,7 +140,7 @@ module "storage_account" {
 
 module "containerregistry" {
   source  = "Azure/avm-res-containerregistry-registry/azurerm"
-  version = "0.4.0"
+  version = "0.5.0"
   count   = var.genai_container_registry_definition.deploy ? 1 : 0
 
   location            = azurerm_resource_group.this.location
@@ -163,6 +163,7 @@ module "containerregistry" {
   role_assignments              = local.genai_container_registry_role_assignments
   sku                           = var.genai_container_registry_definition.sku
   zone_redundancy_enabled       = lower(var.genai_container_registry_definition.sku) == "premium" && length(local.region_zones) > 1 ? var.genai_container_registry_definition.zone_redundancy_enabled : false
+  retention_policy_in_days      = lower(var.genai_container_registry_definition.sku) == "premium" ? 7 : null
 
   depends_on = [module.private_dns_zones, module.hub_vnet_peering]
 }
