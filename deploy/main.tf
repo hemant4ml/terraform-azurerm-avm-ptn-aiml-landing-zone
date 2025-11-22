@@ -91,6 +91,10 @@ module "ai_landing_zone" {
     zone_redundancy_enabled       = false
   }
 
+  ks_ai_search_definition = {
+    sku = "basic"
+  }
+
   # Disable optional components for a minimal setup
   apim_definition = {
     deploy          = false
