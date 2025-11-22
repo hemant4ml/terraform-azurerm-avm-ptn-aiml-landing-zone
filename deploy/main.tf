@@ -69,6 +69,7 @@ module "ai_landing_zone" {
       "default" = {
         name                       = "stfoundry${random_string.suffix.result}"
         enable_diagnostic_settings = false
+        shared_access_key_enabled  = true
       }
     }
     key_vault_definition = {
@@ -91,8 +92,23 @@ module "ai_landing_zone" {
     zone_redundancy_enabled       = false
   }
 
+  # Fix for Storage Account Key Access error
+  genai_storage_account_definition = {
+    shared_access_key_enabled = true
+  }
+
   ks_ai_search_definition = {
     sku = "basic"
+  }
+
+  # Fix for Bing Grounding SKU error
+  ks_bing_grounding_definition = {
+    deploy = false
+  }
+
+  # Fix for Cosmos DB Capacity error (disable secondary region)
+  genai_cosmosdb_definition = {
+    secondary_regions = null
   }
 
   # Disable optional components for a minimal setup
