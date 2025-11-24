@@ -165,10 +165,10 @@ module "ai_landing_zone" {
       }
     }
   }
-  bastion_definition                   = { deploy = false }
+  bastion_definition                   = { deploy = true }
   buildvm_definition                   = { deploy = false }
   container_app_environment_definition = { deploy = false }
   firewall_definition                  = { deploy = false }
-  jumpvm_definition                    = { deploy = false }
+  jumpvm_definition                    = { deploy = true }
   flag_platform_landing_zone           = true # Standalone deployment requires DNS zones to be created
 }
