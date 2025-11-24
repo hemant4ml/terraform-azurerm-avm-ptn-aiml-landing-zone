@@ -58,24 +58,24 @@ module "ai_landing_zone" {
       name                    = "aifoundry-${random_string.suffix.result}"
       sku                     = "S0"
       create_ai_agent_service = false
-      role_assignments = {
-        "contributor" = {
-          role_definition_id_or_name = "Contributor"
-          principal_id               = "42396712-21bd-4768-8192-7a51246e97b4"
-        }
-        "openai_contributor" = {
-          role_definition_id_or_name = "Cognitive Services OpenAI Contributor"
-          principal_id               = "42396712-21bd-4768-8192-7a51246e97b4"
-        }
-        "openai_user" = {
-          role_definition_id_or_name = "Cognitive Services OpenAI User"
-          principal_id               = "42396712-21bd-4768-8192-7a51246e97b4"
-        }
-        "ai_developer" = {
-          role_definition_id_or_name = "Azure AI Developer"
-          principal_id               = "42396712-21bd-4768-8192-7a51246e97b4"
-        }
-      }
+      # role_assignments = {
+      #   "contributor" = {
+      #     role_definition_id_or_name = "Contributor"
+      #     principal_id               = "42396712-21bd-4768-8192-7a51246e97b4"
+      #   }
+      #   "openai_contributor" = {
+      #     role_definition_id_or_name = "Cognitive Services OpenAI Contributor"
+      #     principal_id               = "42396712-21bd-4768-8192-7a51246e97b4"
+      #   }
+      #   "openai_user" = {
+      #     role_definition_id_or_name = "Cognitive Services OpenAI User"
+      #     principal_id               = "42396712-21bd-4768-8192-7a51246e97b4"
+      #   }
+      #   "ai_developer" = {
+      #     role_definition_id_or_name = "Azure AI Developer"
+      #     principal_id               = "42396712-21bd-4768-8192-7a51246e97b4"
+      #   }
+      # }
     }
     ai_projects = {
       "default-project" = {
@@ -99,12 +99,12 @@ module "ai_landing_zone" {
         name                       = "kv-foundry-${random_string.suffix.result}"
         sku                        = "standard"
         enable_diagnostic_settings = false
-        role_assignments = {
-          "kv_owner" = {
-            role_definition_id_or_name = "Key Vault Administrator" # 'Key Vault Owner' is not a standard built-in role for data plane, 'Administrator' gives full data plane access. 'Owner' is control plane.
-            principal_id               = "42396712-21bd-4768-8192-7a51246e97b4"
-          }
-        }
+        # role_assignments = {
+        #   "kv_owner" = {
+        #     role_definition_id_or_name = "Key Vault Administrator" # 'Key Vault Owner' is not a standard built-in role for data plane, 'Administrator' gives full data plane access. 'Owner' is control plane.
+        #     principal_id               = "42396712-21bd-4768-8192-7a51246e97b4"
+        #   }
+        # }
       }
     }
     law_definition = {
