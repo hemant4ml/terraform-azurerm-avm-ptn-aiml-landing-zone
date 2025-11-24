@@ -11,7 +11,7 @@ locals {
     local.genai_container_registry_default_role_assignments,
     var.genai_container_registry_definition.role_assignments
   )
-  genai_cosmosdb_name = try(var.genai_cosmosdb_definition.name, null) != null ? var.genai_cosmosdb_definition.name : (var.name_prefix != null ? "${var.name_prefix}-genai-cosmosdb-${random_string.name_suffix.result}" : "genai-cosmosdb-${random_string.name_suffix.result}")
+  genai_cosmosdb_name = try(var.genai_cosmosdb_definition.name, null) != null ? var.genai_cosmosdb_definition.name : (var.name_prefix != null ? "${var.name_prefix}-genai-cosmosdb-genai1" : "genai-cosmosdb-${random_string.name_suffix.result}")
   # Handle secondary regions logic:
   # - If null, set to empty list
   # - If empty list, set to paired region details(default?)
