@@ -99,6 +99,7 @@ module "ai_landing_zone" {
         name                       = "kv-foundry-${random_string.suffix.result}"
         sku                        = "standard"
         enable_diagnostic_settings = false
+        public_network_access_enabled = false
         # role_assignments = {
         #   "kv_owner" = {
         #     role_definition_id_or_name = "Key Vault Administrator" # 'Key Vault Owner' is not a standard built-in role for data plane, 'Administrator' gives full data plane access. 'Owner' is control plane.
