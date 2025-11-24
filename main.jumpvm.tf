@@ -33,6 +33,7 @@ module "jumpvm" {
   enable_telemetry = var.enable_telemetry
   sku_size         = var.jumpvm_definition.sku
   tags             = var.jumpvm_definition.tags
+  encryption_at_host_enabled = false
 
   depends_on = [module.avm_res_keyvault_vault]
 }
