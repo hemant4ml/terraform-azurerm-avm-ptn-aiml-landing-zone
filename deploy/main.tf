@@ -30,7 +30,7 @@ variable "subscription_id" {
 }
 
 resource "random_string" "suffix" {
-  length  = 4
+  length  = 5
   special = false
   upper   = false
 }
