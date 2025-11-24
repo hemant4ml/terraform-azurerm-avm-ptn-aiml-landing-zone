@@ -112,7 +112,13 @@ module "ai_landing_zone" {
 
   # Fix for Cosmos DB Capacity error (disable secondary region)
   genai_cosmosdb_definition = {
-    secondary_regions = null
+    secondary_regions = [
+      {
+        location          = "swedencentral"
+        failover_priority = 0
+        zone_redundant    = false
+      }
+    ]
   }
 
   # Disable optional components for a minimal setup
