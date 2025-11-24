@@ -55,12 +55,5 @@ resource "azurerm_virtual_machine_extension" "aad_login" {
   auto_upgrade_minor_version = true
 }
 
-resource "azurerm_role_assignment" "vm_admin_login" {
-  count = var.flag_platform_landing_zone && var.jumpvm_definition.deploy ? 1 : 0
-
-  scope                = module.jumpvm[0].resource_id
-  role_definition_name = "Virtual Machine Administrator Login"
-  principal_id         = "42396712-21bd-4768-8192-7a51246e97b4"
-}
 
 
