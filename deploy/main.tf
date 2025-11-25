@@ -58,24 +58,13 @@ module "ai_landing_zone" {
       name                    = "aifoundry-${random_string.suffix.result}"
       sku                     = "S0"
       create_ai_agent_service = false
-      # role_assignments = {
-      #   "contributor" = {
-      #     role_definition_id_or_name = "Contributor"
-      #     principal_id               = "42396712-21bd-4768-8192-7a51246e97b4"
-      #   }
-      #   "openai_contributor" = {
-      #     role_definition_id_or_name = "Cognitive Services OpenAI Contributor"
-      #     principal_id               = "42396712-21bd-4768-8192-7a51246e97b4"
-      #   }
-      #   "openai_user" = {
-      #     role_definition_id_or_name = "Cognitive Services OpenAI User"
-      #     principal_id               = "42396712-21bd-4768-8192-7a51246e97b4"
-      #   }
-      #   "ai_developer" = {
-      #     role_definition_id_or_name = "Azure AI Developer"
-      #     principal_id               = "42396712-21bd-4768-8192-7a51246e97b4"
-      #   }
-      # }
+      role_assignments = {
+        "ai_user" = {
+          role_definition_id_or_name = "Azure AI User"
+          principal_id               = "42396712-21bd-4768-8192-7a51246e97b4" # hemantbhatt@hotmail.com
+          principal_type             = "User"
+        }
+      }
     }
     ai_projects = {
       "default-project" = {
