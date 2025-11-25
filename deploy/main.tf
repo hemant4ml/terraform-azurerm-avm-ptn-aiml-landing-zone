@@ -58,13 +58,8 @@ module "ai_landing_zone" {
       name                    = "aifoundry-${random_string.suffix.result}"
       sku                     = "S0"
       create_ai_agent_service = false
-      role_assignments = {
-        "ai_user" = {
-          role_definition_id_or_name = "Azure AI User"
-          principal_id               = "42396712-21bd-4768-8192-7a51246e97b4" # hemantbhatt@hotmail.com
-          principal_type             = "User"
-        }
-      }
+      # Role assignments removed - SP lacks Microsoft.Authorization/roleAssignments/write permission
+      # Run manually: az role assignment create --assignee "42396712-21bd-4768-8192-7a51246e97b4" --role "Azure AI User" --scope "<ai-foundry-resource-id>"
     }
     ai_projects = {
       "default-project" = {
