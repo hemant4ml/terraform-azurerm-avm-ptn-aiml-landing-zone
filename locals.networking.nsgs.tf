@@ -56,6 +56,17 @@ locals {
       source_address_prefixes      = try(var.vnet_definition.subnets["JumpboxSubnet"].address_prefix, null) != null ? [var.vnet_definition.subnets["JumpboxSubnet"].address_prefix] : [cidrsubnet(var.vnet_definition.address_space[0], 4, 6)]
       source_port_range            = "*"
     }
+    "bastion_inbound" = {
+      name                         = "Allow-Bastion-Inbound"
+      access                       = "Allow"
+      destination_address_prefixes = try(var.vnet_definition.subnets["JumpboxSubnet"].address_prefix, null) != null ? [var.vnet_definition.subnets["JumpboxSubnet"].address_prefix] : [cidrsubnet(var.vnet_definition.address_space[0], 4, 6)]
+      destination_port_ranges      = ["3389"]
+      direction                    = "Inbound"
+      priority                     = 140
+      protocol                     = "Tcp"
+      source_address_prefixes      = try(var.vnet_definition.subnets["AzureBastionSubnet"].address_prefix, null) != null ? [var.vnet_definition.subnets["AzureBastionSubnet"].address_prefix] : [cidrsubnet(var.vnet_definition.address_space[0], 3, 5)]
+      source_port_range            = "*"
+    }
 
   }
   nsg_name = try(var.nsgs_definition.name, null) != null ? var.nsgs_definition.name : (var.name_prefix != null ? "${var.name_prefix}-ai-alz-nsg" : "ai-alz-nsg")
