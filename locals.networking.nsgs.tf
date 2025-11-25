@@ -53,7 +53,7 @@ locals {
       direction                    = "Outbound"
       priority                     = 130
       protocol                     = "Tcp"
-      source_address_prefixes      = try(var.vnet_definition.subnets["JumpboxSubnet"].address_prefix, null) != null ? [var.vnet_definition.subnets["JumpboxSubnet"].address_prefix] : [cidrsubnet(var.vnet_definition.address_space[0], 4, 2)]
+      source_address_prefixes      = try(var.vnet_definition.subnets["JumpboxSubnet"].address_prefix, null) != null ? [var.vnet_definition.subnets["JumpboxSubnet"].address_prefix] : [cidrsubnet(var.vnet_definition.address_space[0], 4, 6)]
       source_port_range            = "*"
     }
 
