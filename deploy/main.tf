@@ -57,7 +57,7 @@ module "ai_landing_zone" {
     ai_foundry = {
       name                    = "aifoundry-${random_string.suffix.result}"
       sku                     = "S0"
-      create_ai_agent_service = false
+      create_ai_agent_service = true
       role_assignments = {
         "ai_user" = {
           role_definition_id_or_name = "Azure AI User"
@@ -68,10 +68,17 @@ module "ai_landing_zone" {
     }
     ai_projects = {
       "default-project" = {
-        name         = "proj-default-${random_string.suffix.result}"
-        display_name = "Default Project"
-        description  = "Minimal AI Foundry Project"
+        name                       = "proj-default-${random_string.suffix.result}"
+        display_name               = "Default Project"
+        description                = "Minimal AI Foundry Project"
+        create_project_connections = true
         storage_account_connection = {
+          new_resource_map_key = "default"
+        }
+        ai_search_connection = {
+          new_resource_map_key = "default"
+        }
+        cosmos_db_connection = {
           new_resource_map_key = "default"
         }
       }
@@ -100,6 +107,24 @@ module "ai_landing_zone" {
     law_definition = {
       "default" = {
         name = "law-foundry-${random_string.suffix.result}"
+      }
+    }
+    ai_search_definition = {
+      "default" = {
+        name = "search-foundry-${random_string.suffix.result}"
+        sku  = "basic"
+      }
+    }
+    cosmosdb_definition = {
+      "default" = {
+        name = "cosmos-foundry-${random_string.suffix.result}"
+        secondary_regions = [
+          {
+            location          = "swedencentral"
+            failover_priority = 0
+            zone_redundant    = false
+          }
+        ]
       }
     }
   }
