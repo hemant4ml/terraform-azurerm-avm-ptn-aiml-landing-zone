@@ -36,30 +36,23 @@ module "jumpvm" {
   # when public network access is disabled on the Key Vault.
   admin_password = random_password.jumpvm_password.result
 
-  os_type = "Linux"
+  os_type = "Windows"
   source_image_reference = {
-    publisher = "Canonical"
-    offer     = "0001-com-ubuntu-server-jammy"
-    sku       = "22_04-lts"
+    publisher = "MicrosoftWindowsServer"
+    offer     = "WindowsServer"
+    sku       = "2022-Datacenter"
     version   = "latest"
   }
   admin_username = "azureuser"
-  disable_password_authentication = false
-
-  # Install Ubuntu Desktop and XRDP for GUI access
-  custom_data = base64encode(<<-EOF
-    #!/bin/bash
-    apt-get update
-    DEBIAN_FRONTEND=noninteractive apt-get install -y ubuntu-desktop xrdp
-    systemctl enable xrdp
-    systemctl start xrdp
-  EOF
-  )
 
   enable_telemetry = var.enable_telemetry
   sku_size         = var.jumpvm_definition.sku
   tags             = var.jumpvm_definition.tags
   encryption_at_host_enabled = false
+
+  managed_identities = {
+    system_assigned = true
+  }
 
   depends_on = [module.avm_res_keyvault_vault]
 }
@@ -67,9 +60,9 @@ module "jumpvm" {
 resource "azurerm_virtual_machine_extension" "aad_login" {
   count = var.flag_platform_landing_zone && var.jumpvm_definition.deploy ? 1 : 0
 
-  name                       = "AADSSHLoginForLinux"
+  name                       = "AADLoginForWindows"
   publisher                  = "Microsoft.Azure.ActiveDirectory"
-  type                       = "AADSSHLoginForLinux"
+  type                       = "AADLoginForWindows"
   type_handler_version       = "1.0"
   virtual_machine_id         = module.jumpvm[0].resource_id
   auto_upgrade_minor_version = true

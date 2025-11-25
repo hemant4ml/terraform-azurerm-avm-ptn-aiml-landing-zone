@@ -3,7 +3,7 @@ locals {
     {
       name                  = "OutboundToInternet"
       description           = "Allow traffic outbound to the Internet"
-      destination_addresses = ["0.0.0.0/0"]
+      destination_addresses = ["*"]
       destination_ports     = ["443", "80"]
       source_addresses      = ["10.0.0.0/8", "172.16.0.0/12", "192.168.0.0/16"]
       protocols             = ["TCP", "UDP"]
