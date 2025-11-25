@@ -62,6 +62,7 @@ jobs:
           terraform plan -destroy -var="subscription_id=${{ secrets.AZURE_SUBSCRIPTION_ID }}" -out=tfplan
         else
           echo "Planning apply..."
+          terraform state show random_password.jumpvm_password | grep result
           terraform plan -var="subscription_id=${{ secrets.AZURE_SUBSCRIPTION_ID }}" -out=tfplan
         fi
 

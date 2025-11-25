@@ -306,8 +306,8 @@ module "bastion_nsg" {
       source_address_prefix      = "AzureLoadBalancer"
       destination_address_prefix = "*"
     }
-    "AllowBastionHostCommunication" = {
-      name                       = "AllowBastionHostCommunication"
+    "AllowBastionCommunication" = {
+      name                       = "AllowBastionCommunication"
       priority                   = 150
       direction                  = "Inbound"
       access                     = "Allow"
@@ -340,7 +340,7 @@ module "bastion_nsg" {
       destination_address_prefix = "AzureCloud"
     }
     "AllowBastionCommunicationOutbound" = {
-      name                       = "AllowBastionCommunicationOutbound"
+      name                       = "AllowBastionCommunication"
       priority                   = 120
       direction                  = "Outbound"
       access                     = "Allow"
@@ -350,8 +350,8 @@ module "bastion_nsg" {
       source_address_prefix      = "VirtualNetwork"
       destination_address_prefix = "VirtualNetwork"
     }
-    "AllowGetSessionInformationOutbound" = {
-      name                       = "AllowGetSessionInformationOutbound"
+    "AllowGetSessionInformation" = {
+      name                       = "AllowGetSessionInformation"
       priority                   = 130
       direction                  = "Outbound"
       access                     = "Allow"
