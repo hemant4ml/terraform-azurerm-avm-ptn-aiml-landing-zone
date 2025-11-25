@@ -54,12 +54,6 @@ jobs:
           -backend-config="key=terraform.tfstate" \
           -backend-config="use_oidc=true"
 
-    - name: Destroy JumpVM for OS Migration
-      if: inputs.terraform_action == 'apply'
-      run: |
-        echo "Destroying JumpVM to allow OS switch..."
-        terraform destroy -target=module.ai_landing_zone.module.jumpvm -auto-approve -var="subscription_id=${{ secrets.AZURE_SUBSCRIPTION_ID }}"
-
     - name: Terraform Plan
       id: plan
       run: |
