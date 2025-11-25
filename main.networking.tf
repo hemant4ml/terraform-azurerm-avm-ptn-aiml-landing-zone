@@ -26,7 +26,7 @@ module "ai_lz_vnet" {
 
 module "natgateway" {
   source  = "Azure/avm-res-network-natgateway/azurerm"
-  version = "0.4.0"
+  version = "0.2.1"
   count   = var.flag_platform_landing_zone ? 1 : 0
 
   location            = azurerm_resource_group.this.location
