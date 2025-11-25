@@ -272,10 +272,6 @@ module "bastion_nsg" {
   location            = azurerm_resource_group.this.location
   name                = "${local.bastion_name}-nsg"
   resource_group_name = azurerm_resource_group.this.name
-
-  # Ensure Bastion is destroyed before NSG rules during terraform destroy
-  depends_on = [module.azure_bastion]
-
   security_rules = {
     "AllowHttpsInbound" = {
       name                       = "AllowHttpsInbound"
