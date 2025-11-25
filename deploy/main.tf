@@ -75,6 +75,12 @@ module "ai_landing_zone" {
         storage_account_connection = {
           new_resource_map_key = "default"
         }
+        ai_search_connection = {
+          new_resource_map_key = "default"
+        }
+        cosmos_db_connection = {
+          new_resource_map_key = "default"
+        }
       }
     }
     storage_account_definition = {
@@ -101,6 +107,25 @@ module "ai_landing_zone" {
     law_definition = {
       "default" = {
         name = "law-foundry-${random_string.suffix.result}"
+      }
+    }
+    # Required when create_project_connections = true
+    ai_search_definition = {
+      "default" = {
+        name = "search-foundry-${random_string.suffix.result}"
+        sku  = "basic"
+      }
+    }
+    cosmosdb_definition = {
+      "default" = {
+        name = "cosmos-foundry-${random_string.suffix.result}"
+        secondary_regions = [
+          {
+            location          = "swedencentral"
+            failover_priority = 0
+            zone_redundant    = false
+          }
+        ]
       }
     }
   }
