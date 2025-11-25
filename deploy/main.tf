@@ -57,7 +57,7 @@ module "ai_landing_zone" {
     ai_foundry = {
       name                    = "aifoundry-${random_string.suffix.result}"
       sku                     = "S0"
-      create_ai_agent_service = true
+      create_ai_agent_service = false # Disabled due to upstream module bug with project-level capability host
       role_assignments = {
         "ai_user" = {
           role_definition_id_or_name = "Azure AI User"
