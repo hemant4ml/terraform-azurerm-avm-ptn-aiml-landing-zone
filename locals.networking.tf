@@ -108,7 +108,7 @@ locals {
       enabled          = var.flag_platform_landing_zone == true ? try(var.vnet_definition.subnets["JumpboxSubnet"].enabled, true) : try(var.vnet_definition.subnets["JumpboxSubnet"].enabled, false)
       name             = try(var.vnet_definition.subnets["JumpboxSubnet"].name, null) != null ? var.vnet_definition.subnets["JumpboxSubnet"].name : "JumpboxSubnet"
       address_prefixes = try(var.vnet_definition.subnets["JumpboxSubnet"].address_prefix, null) != null ? [var.vnet_definition.subnets["JumpboxSubnet"].address_prefix] : [cidrsubnet(var.vnet_definition.address_space[0], 4, 6)]
-      route_table = var.flag_platform_landing_zone == true ? {
+      route_table = var.flag_platform_landing_zone == true && var.firewall_definition.deploy == true ? {
         id = module.firewall_route_table[0].resource_id
       } : null
       network_security_group = {

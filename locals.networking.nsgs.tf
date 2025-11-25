@@ -78,6 +78,17 @@ locals {
       source_address_prefixes      = try(var.vnet_definition.subnets["JumpboxSubnet"].address_prefix, null) != null ? [var.vnet_definition.subnets["JumpboxSubnet"].address_prefix] : [cidrsubnet(var.vnet_definition.address_space[0], 4, 6)]
       source_port_range            = "*"
     }
+    "allow_dns_outbound" = {
+      name                         = "Allow-DNS-Outbound"
+      access                       = "Allow"
+      destination_address_prefix   = "*"
+      destination_port_ranges      = ["53"]
+      direction                    = "Outbound"
+      priority                     = 160
+      protocol                     = "*"
+      source_address_prefixes      = try(var.vnet_definition.subnets["JumpboxSubnet"].address_prefix, null) != null ? [var.vnet_definition.subnets["JumpboxSubnet"].address_prefix] : [cidrsubnet(var.vnet_definition.address_space[0], 4, 6)]
+      source_port_range            = "*"
+    }
 
   }
   nsg_name = try(var.nsgs_definition.name, null) != null ? var.nsgs_definition.name : (var.name_prefix != null ? "${var.name_prefix}-ai-alz-nsg" : "ai-alz-nsg")

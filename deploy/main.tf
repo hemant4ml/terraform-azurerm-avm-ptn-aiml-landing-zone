@@ -57,7 +57,7 @@ module "ai_landing_zone" {
     ai_foundry = {
       name                    = "aifoundry-${random_string.suffix.result}"
       sku                     = "S0"
-      create_ai_agent_service = false # Disabled due to upstream module bug with project-level capability host
+      create_ai_agent_service = true
       role_assignments = {
         "ai_user" = {
           role_definition_id_or_name = "Azure AI User"
@@ -68,9 +68,10 @@ module "ai_landing_zone" {
     }
     ai_projects = {
       "default-project" = {
-        name         = "proj-default-${random_string.suffix.result}"
-        display_name = "Default Project"
-        description  = "Minimal AI Foundry Project"
+        name                       = "proj-default-${random_string.suffix.result}"
+        display_name               = "Default Project"
+        description                = "Minimal AI Foundry Project"
+        create_project_connections = true # Required for capability host when create_ai_agent_service = true
         storage_account_connection = {
           new_resource_map_key = "default"
         }
