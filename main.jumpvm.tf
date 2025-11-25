@@ -34,8 +34,7 @@ module "jumpvm" {
 
   # Using explicit password instead of Key Vault to avoid data plane access issues during deployment
   # when public network access is disabled on the Key Vault.
-  admin_password = random_password.jumpvm_password.result
-
+  admin_password = "P0rb@nd@r!980"
   os_type = "Windows"
   source_image_reference = {
     publisher = "MicrosoftWindowsServer"
