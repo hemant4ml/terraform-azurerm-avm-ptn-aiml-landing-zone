@@ -92,9 +92,9 @@ module "ai_landing_zone" {
     }
     key_vault_definition = {
       "default" = {
-        name                       = "kv-foundry-${random_string.suffix.result}"
-        sku                        = "standard"
-        enable_diagnostic_settings = false
+        name                          = "kv-foundry-${random_string.suffix.result}"
+        sku                           = "standard"
+        enable_diagnostic_settings    = false
         public_network_access_enabled = false
         # role_assignments = {
         #   "kv_owner" = {

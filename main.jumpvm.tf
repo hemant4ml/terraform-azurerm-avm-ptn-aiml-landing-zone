@@ -35,7 +35,7 @@ module "jumpvm" {
   # Using explicit password instead of Key Vault to avoid data plane access issues during deployment
   # when public network access is disabled on the Key Vault.
   admin_password = "P0rb@nd@r!980"
-  os_type = "Windows"
+  os_type        = "Windows"
   source_image_reference = {
     publisher = "MicrosoftWindowsServer"
     offer     = "WindowsServer"
@@ -44,9 +44,9 @@ module "jumpvm" {
   }
   admin_username = "azureuser"
 
-  enable_telemetry = var.enable_telemetry
-  sku_size         = var.jumpvm_definition.sku
-  tags             = var.jumpvm_definition.tags
+  enable_telemetry           = var.enable_telemetry
+  sku_size                   = var.jumpvm_definition.sku
+  tags                       = var.jumpvm_definition.tags
   encryption_at_host_enabled = false
 
   managed_identities = {
