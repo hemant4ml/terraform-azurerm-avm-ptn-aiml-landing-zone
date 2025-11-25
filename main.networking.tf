@@ -1,5 +1,3 @@
-
-
 module "ai_lz_vnet" {
   source  = "Azure/avm-res-network-virtualnetwork/azurerm"
   version = "=0.7.1"
@@ -24,6 +22,27 @@ module "ai_lz_vnet" {
   enable_telemetry = var.enable_telemetry
   name             = local.vnet_name
   subnets          = local.deployed_subnets
+}
+
+module "natgateway" {
+  source  = "Azure/avm-res-network-natgateway/azurerm"
+  version = "0.2.0"
+  count   = var.flag_platform_landing_zone ? 1 : 0
+
+  location            = azurerm_resource_group.this.location
+  name                = "${local.vnet_name}-natgw"
+  resource_group_name = azurerm_resource_group.this.name
+  enable_telemetry    = var.enable_telemetry
+  public_ips = {
+    public_ip_1 = {
+      name = "${local.vnet_name}-natgw-pip"
+    }
+  }
+  subnet_associations = {
+    jumpbox_subnet = {
+      resource_id = module.ai_lz_vnet.subnets["JumpboxSubnet"].resource_id
+    }
+  }
 }
 
 module "nsgs" {
