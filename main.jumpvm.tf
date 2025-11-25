@@ -36,6 +36,26 @@ module "jumpvm" {
   # when public network access is disabled on the Key Vault.
   admin_password = random_password.jumpvm_password.result
 
+  os_type = "Linux"
+  source_image_reference = {
+    publisher = "Canonical"
+    offer     = "0001-com-ubuntu-server-jammy"
+    sku       = "22_04-lts"
+    version   = "latest"
+  }
+  admin_username = "azureuser"
+  disable_password_authentication = false
+
+  # Install Ubuntu Desktop and XRDP for GUI access
+  custom_data = base64encode(<<-EOF
+    #!/bin/bash
+    apt-get update
+    DEBIAN_FRONTEND=noninteractive apt-get install -y ubuntu-desktop xrdp
+    systemctl enable xrdp
+    systemctl start xrdp
+  EOF
+  )
+
   enable_telemetry = var.enable_telemetry
   sku_size         = var.jumpvm_definition.sku
   tags             = var.jumpvm_definition.tags
