@@ -94,9 +94,9 @@ locals {
       name             = "AzureBastionSubnet"
       address_prefixes = try(var.vnet_definition.subnets["AzureBastionSubnet"].address_prefix, null) != null ? [var.vnet_definition.subnets["AzureBastionSubnet"].address_prefix] : [cidrsubnet(var.vnet_definition.address_space[0], 3, 5)]
       route_table      = null
-      #network_security_group = {
-      #  id = module.nsgs.resource_id
-      #}
+      network_security_group = {
+        id = module.bastion_nsg[0].resource_id
+      }
     }
     AzureFirewallSubnet = {
       enabled          = var.flag_platform_landing_zone == true ? try(var.vnet_definition.subnets["AzureFirewallSubnet"].enabled, true) : try(var.vnet_definition.subnets["AzureFirewallSubnet"].enabled, false)

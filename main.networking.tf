@@ -264,3 +264,103 @@ module "application_gateway" {
   zones                       = local.region_zones
 }
 
+module "bastion_nsg" {
+  source  = "Azure/avm-res-network-networksecuritygroup/azurerm"
+  version = "0.4.0"
+  count   = var.flag_platform_landing_zone && var.bastion_definition.deploy ? 1 : 0
+
+  location            = azurerm_resource_group.this.location
+  name                = "${local.bastion_name}-nsg"
+  resource_group_name = azurerm_resource_group.this.name
+  security_rules = {
+    "AllowHttpsInbound" = {
+      name                       = "AllowHttpsInbound"
+      priority                   = 120
+      direction                  = "Inbound"
+      access                     = "Allow"
+      protocol                   = "Tcp"
+      source_port_range          = "*"
+      destination_port_range     = "443"
+      source_address_prefix      = "Internet"
+      destination_address_prefix = "*"
+    }
+    "AllowGatewayManagerInbound" = {
+      name                       = "AllowGatewayManagerInbound"
+      priority                   = 130
+      direction                  = "Inbound"
+      access                     = "Allow"
+      protocol                   = "Tcp"
+      source_port_range          = "*"
+      destination_port_range     = "443"
+      source_address_prefix      = "GatewayManager"
+      destination_address_prefix = "*"
+    }
+    "AllowAzureLoadBalancerInbound" = {
+      name                       = "AllowAzureLoadBalancerInbound"
+      priority                   = 140
+      direction                  = "Inbound"
+      access                     = "Allow"
+      protocol                   = "Tcp"
+      source_port_range          = "*"
+      destination_port_range     = "443"
+      source_address_prefix      = "AzureLoadBalancer"
+      destination_address_prefix = "*"
+    }
+    "AllowBastionHostCommunication" = {
+      name                       = "AllowBastionHostCommunication"
+      priority                   = 150
+      direction                  = "Inbound"
+      access                     = "Allow"
+      protocol                   = "*"
+      source_port_range          = "*"
+      destination_port_ranges    = ["8080", "5701"]
+      source_address_prefix      = "VirtualNetwork"
+      destination_address_prefix = "VirtualNetwork"
+    }
+    "AllowSshRdpOutbound" = {
+      name                       = "AllowSshRdpOutbound"
+      priority                   = 100
+      direction                  = "Outbound"
+      access                     = "Allow"
+      protocol                   = "*"
+      source_port_range          = "*"
+      destination_port_ranges    = ["22", "3389"]
+      source_address_prefix      = "*"
+      destination_address_prefix = "VirtualNetwork"
+    }
+    "AllowAzureCloudOutbound" = {
+      name                       = "AllowAzureCloudOutbound"
+      priority                   = 110
+      direction                  = "Outbound"
+      access                     = "Allow"
+      protocol                   = "Tcp"
+      source_port_range          = "*"
+      destination_port_range     = "443"
+      source_address_prefix      = "*"
+      destination_address_prefix = "AzureCloud"
+    }
+    "AllowBastionCommunicationOutbound" = {
+      name                       = "AllowBastionCommunicationOutbound"
+      priority                   = 120
+      direction                  = "Outbound"
+      access                     = "Allow"
+      protocol                   = "*"
+      source_port_range          = "*"
+      destination_port_ranges    = ["8080", "5701"]
+      source_address_prefix      = "VirtualNetwork"
+      destination_address_prefix = "VirtualNetwork"
+    }
+    "AllowGetSessionInformationOutbound" = {
+      name                       = "AllowGetSessionInformationOutbound"
+      priority                   = 130
+      direction                  = "Outbound"
+      access                     = "Allow"
+      protocol                   = "*"
+      source_port_range          = "*"
+      destination_port_range     = "80"
+      source_address_prefix      = "*"
+      destination_address_prefix = "Internet"
+    }
+  }
+}
+
